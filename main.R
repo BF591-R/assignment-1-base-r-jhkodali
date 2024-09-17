@@ -161,7 +161,7 @@ summarize_matrix <- function(x, na.rm=FALSE) {
     m_stdev <- apply(x, 1, sd)
     m_median <- apply(x, 1, median)
     m_min <- apply(x, 1, min)
-    m_max <- apply(x, 1, sum)
+    m_max <- apply(x, 1, max)
     m_num_lt_0 <- apply(x, 1, num_less_than_zero)
     m_num_btw_1_and_5 <- apply(x, 1, num_between_1_5)
     m_num_na <- apply(x, 1, number_na)
@@ -178,8 +178,6 @@ summarize_matrix <- function(x, na.rm=FALSE) {
     return(result)
 }
 
-m <- matrix(1:9, nrow=3, byrow=T)
-summarize_matrix(m)
 
 # ------------ Helper Functions Used By Assignment, You May Ignore ------------
 sample_normal <- function(n, mean=0, sd=1) {
