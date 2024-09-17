@@ -137,6 +137,7 @@ summarize_rows <- function(x, fn, na.rm=FALSE) {
 #' 2    5     1      5   4   6        0               1      0
 #' 3    8     1      8   7   9        0               0      0
 #'
+#'num_btw_1_and_5 should be 2 in row 1
 #' m <- matrix(rnorm(1000), nrow=4, byrow=T)
 #' summarize_matrix(m)
 #'          mean    stdev      median       min      max num_lt_0 num_btw_1_and_5 num_na
@@ -149,7 +150,7 @@ num_less_than_zero <- function(x) {
 }
 
 num_between_1_5 <- function(x) {
-  return(sum(1 <= x & x <= 5))
+  return(sum(1 < x & x < 5))
 }
 
 number_na <- function(x) {
