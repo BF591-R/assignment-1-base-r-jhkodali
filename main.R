@@ -47,10 +47,6 @@ is_between <- function(x, a, b) {
     return(a < x & x < b)
 }
 
-is_between_1_5 <- function(x, a, b) {
-  return(1 < x & x < 5)
-}
-
 #' Return the values of the input vector that are not NA
 #'
 #' Returns the values of the input vector `x` that are not NA
@@ -148,10 +144,17 @@ summarize_rows <- function(x, fn, na.rm=FALSE) {
 #' 2 -0.01574033 1.026951 -0.04725656 -2.967057 2.571608      112              70      0
 #' 3 -0.09040182 1.027559 -0.02774705 -3.026888 2.353087      130              54      0
 #' 4  0.09518138 1.030461  0.11294781 -3.409049 2.544992       90              72      0
+num_less_than_zero <- function(x) {
+  return(sum(x < 0))
+}
+
+num_between_1_5 <- function(x) {
+  return(sum(1 <= x & x <= 5))
+}
+
 number_na <- function(x) {
   return(sum(is.na(x)))
 }
-
 
 summarize_matrix <- function(x, na.rm=FALSE) {
     m_mean <- apply(x, 1, mean)
@@ -159,8 +162,8 @@ summarize_matrix <- function(x, na.rm=FALSE) {
     m_median <- apply(x, 1, median)
     m_min <- apply(x, 1, min)
     m_max <- apply(x, 1, sum)
-    m_num_lt_0 <- apply(x, 1, less_than_zero)
-    m_num_btw_1_and_5 <- apply(x, 1, is_between_1_5)
+    m_num_lt_0 <- apply(x, 1, num_less_than_zero)
+    m_num_btw_1_and_5 <- apply(x, 1, num_between_1_5)
     m_num_na <- apply(x, 1, number_na)
     result <- data.frame(
       mean = m_mean,
@@ -174,6 +177,9 @@ summarize_matrix <- function(x, na.rm=FALSE) {
     )
     return(result)
 }
+
+m <- matrix(1:9, nrow=3, byrow=T)
+summarize_matrix(m)
 
 # ------------ Helper Functions Used By Assignment, You May Ignore ------------
 sample_normal <- function(n, mean=0, sd=1) {
