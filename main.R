@@ -145,27 +145,27 @@ summarize_rows <- function(x, fn, na.rm=FALSE) {
 #' 2 -0.01574033 1.026951 -0.04725656 -2.967057 2.571608      112              70      0
 #' 3 -0.09040182 1.027559 -0.02774705 -3.026888 2.353087      130              54      0
 #' 4  0.09518138 1.030461  0.11294781 -3.409049 2.544992       90              72      0
-num_less_than_zero <- function(x) {
+num_less_than_zero <- function(x, na.rm=FALSE) {
   return(sum(x < 0))
 }
 
-num_between_1_5 <- function(x) {
+num_between_1_5 <- function(x, na.rm=FALSE) {
   return(sum(1 < x & x < 5))
 }
 
-number_na <- function(x) {
+number_na <- function(x, na.rm=FALSE) {
   return(sum(is.na(x)))
 }
 
 summarize_matrix <- function(x, na.rm=FALSE) {
-    m_mean <- apply(x, 1, mean)
-    m_stdev <- apply(x, 1, sd)
-    m_median <- apply(x, 1, median)
-    m_min <- apply(x, 1, min)
-    m_max <- apply(x, 1, max)
-    m_num_lt_0 <- apply(x, 1, num_less_than_zero)
-    m_num_btw_1_and_5 <- apply(x, 1, num_between_1_5)
-    m_num_na <- apply(x, 1, number_na)
+    m_mean <- apply(x, 1, mean, na.rm=na.rm)
+    m_stdev <- apply(x, 1, sd, na.rm=na.rm)
+    m_median <- apply(x, 1, median, na.rm=na.rm)
+    m_min <- apply(x, 1, min, na.rm=na.rm)
+    m_max <- apply(x, 1, max, na.rm=na.rm)
+    m_num_lt_0 <- apply(x, 1, num_less_than_zero, na.rm=na.rm)
+    m_num_btw_1_and_5 <- apply(x, 1, num_between_1_5, na.rm=na.rm)
+    m_num_na <- apply(x, 1, number_na, na.rm=na.rm)
     result <- data.frame(
       mean = m_mean,
       stdev = m_stdev,
